@@ -1,0 +1,138 @@
+{
+    "name": "Arabidopsis",
+    "type": "folder",
+    "children": [
+        {
+            "name": "complete",
+            "type": "folder",
+            "children": [
+                {
+                    "name": "plant1",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "03-17_AM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "03-17_AM_segmented.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "03-17_PM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "03-17_PM_segmented.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "plant2",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "05-17_AM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "05-17_AM.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "05-17_PM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "05-17_PM.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "partial",
+            "type": "folder",
+            "children": [
+                {
+                    "name": "plant1",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "03-20_AM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "0.ply",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "1.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "03-20_PM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "0.ply",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "1.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "plant2",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "name": "05-17_AM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "0.ply",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "1.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "05-17_PM",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "name": "0.ply",
+                                    "type": "file"
+                                },
+                                {
+                                    "name": "1.ply",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
