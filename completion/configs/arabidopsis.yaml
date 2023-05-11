@@ -1,8 +1,9 @@
+common_path_base: C:/Users/Husse/Documents/TER/TERCompletionNuages/
 dataset:
   name: Arabidopsis
-  category_file_path: D:/M1/S2/TER/tercompletionnuages/completion/category_files/Arabidopsis.json
-  partial_points_path: D:/M1/S2/TER/tercompletionnuages/data/Arabidopsis/partial/%s
-  complete_points_path: D:/M1/S2/TER/tercompletionnuages/data/Arabidopsis/complete/%s
+  category_file_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/category_files/Arabidopsis.json
+  partial_points_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/partial/%s
+  complete_points_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/complete/%s
   n_renderings: 8
   n_points: 2048
 
@@ -40,7 +41,7 @@ train:
   split_freq: 5
   out_path:
   resume: True
-  model_path: D:/M1/S2/TER/tercompletionnuages/experiments/ckpt-best.pth
+  model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
 #  updated_model_reader: D:/M1/S2/TER/Train/SnowflakeNet/completion/configs/train_update.yaml
 
 test:
@@ -49,4 +50,4 @@ test:
   batch_size: 4
   num_workers: 4
   loss_func: cd_l2
-  model_path: D:/M1/S2/TER/tercompletionnuages/experiments/ckpt-best.pth
+  model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth

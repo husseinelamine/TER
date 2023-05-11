@@ -2,6 +2,7 @@ completion/__pycache__
 completion/exp/
 completion/core/__pycache__
 completion/core/datasets/__pycache__
+completion/utils/__pycache__
 loss_functions/__pycache__
 loss_functions/Chamfer3D/__pycache__
 loss_functions/emd/__pycache__
