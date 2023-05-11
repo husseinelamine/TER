@@ -1,0 +1,10 @@
+# ninja log v5
+49	17479	7037858241387309	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/group_points.obj	608b416b2549f25d
+65	17507	7037858241502509	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/interpolate.obj	d9f065b4c3104652
+94	17516	7037858241512487	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/sampling.obj	6fd1272bc4158f9c
+2	17525	7037858241522518	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/ball_query.obj	1bc7914fd9b47214
+34	17534	7037858241492513	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/bindings.obj	b39a2ffd98a03f2c
+9	44697	7037918854773455	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/ball_query_gpu.obj	b22547c0387caa7
+25	45177	7037918859533987	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/group_points_gpu.obj	53d1806c20ce75c6
+39	45657	7037918864323471	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/interpolate_gpu.obj	e126c01d6070a990
+80	48972	7037918897552858	D:/M1/S2/TER/Train/SnowflakeNet/models/pointnet2_ops_lib/build/temp.win-amd64-3.7/Release/pointnet2_ops/_ext-src/src/sampling_gpu.obj	6d03b59f0c8bc3c7

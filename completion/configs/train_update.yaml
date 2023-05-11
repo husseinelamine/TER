@@ -1,0 +1,3 @@
+epochs: 400
+init_epoch: 4
+model_path: D:/M1/S2/TER/Train/SnowflakeNet/experiments/Arabidopsis2.pth
