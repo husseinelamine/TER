@@ -158,6 +158,12 @@ def train(config):
         if epoch_idx % config.train.split_freq == 0:
             cmd = f"python C:/Users/Husse/Documents/TER/TERCompletionNuages/testing/split7.py --limit-dir 6 --limit-plant 650 --seed {random.randint(30, 1000)}"
             subprocess.run(cmd, shell=True)
+            config_path = config.config_path
+            config = yaml_reader.read_yaml(config_path)
+            config.config_path = config_path
+            train_dataloader = builder.make_dataloader(config, 'train')
+            test_dataloader = builder.make_dataloader(config, config.test.split)
+
 
 
     train_writer.close()
@@ -169,6 +175,7 @@ if __name__ == '__main__':
 
     config = yaml_reader.read_yaml(args.config)
 
+    config.config_path = args.config
 
     set_seed(config.train.seed)
 
