@@ -25,7 +25,7 @@ def set_seed(seed):
 
 def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='The argument parser of SnowflakeNet')
-    parser.add_argument('--config', type=str, default='./configs/Arabidopsis.yaml', help='Configuration File')
+    parser.add_argument('--config', type=str, default='C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/configs/Arabidopsis.yaml', help='Configuration File')
     args = parser.parse_args()
     return args
 
@@ -87,6 +87,8 @@ def train(config):
     for epoch_idx in range(init_epoch, config.train.epochs):
         avg_meter_loss.reset()
         model.train()
+        torch.cuda.empty_cache()
+
         try:
             with tqdm(train_dataloader) as t:
                 for batch_idx, (_, _, data) in enumerate(t):
@@ -154,7 +156,7 @@ def train(config):
             if cd_eval < best_metric:
                 best_metric = cd_eval
         if epoch_idx % config.train.split_freq == 0:
-            cmd = f"python ../testing/split7.py --limit-dir 6 --limit-plant 650 --seed {random.randint(30, 1000)}"
+            cmd = f"python C:/Users/Husse/Documents/TER/TERCompletionNuages/testing/split7.py --limit-dir 6 --limit-plant 650 --seed {random.randint(30, 1000)}"
             subprocess.run(cmd, shell=True)
 
 
