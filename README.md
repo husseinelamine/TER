@@ -5,7 +5,7 @@
 [<img src="./pics/SPD.png" width="100%" alt="Intro pic" />](pics/SPD.png)
 
 ## [NEWS]
-
+https://drive.google.com/file/d/1us88hQv2wKHzeDVvDyKOzIDpvScpriMU/view?usp=drivesdk
 - **2023-02 [NEW:tada:]** The [Jittor](https://cg.cs.tsinghua.edu.cn/jittor/) implementations of SPD are released in the [SPD_jittor](https://github.com/AllenXiangX/SPD_jittor) repo.
 - **2023-01 [NEW:tada:]**  This repository now contains the code of the ICCV paper and the extra contents of the extended version, including:
 
