@@ -27,6 +27,9 @@ args = parser.parse_args()
 MAX_COUNT = args.max_count
 LIMITDIR = args.limit_dir
 LIMITPLANT = args.limit_plant
+# check if it is divisible par 2 et pas 4 et ajouter 2 si oui
+if LIMITPLANT % 2 == 0 and LIMITPLANT % 4 != 0:
+    LIMITPLANT += 2
 seed = args.seed
 
 plants = ["plant1", "plant2", "plant3", "plant4"]

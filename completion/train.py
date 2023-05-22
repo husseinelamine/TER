@@ -13,8 +13,9 @@ from utils import helpers, average_meter, scheduler, yaml_reader, loss_util, mis
 from core import builder
 from test import test
 from configup import update_yaml_file 
-import subprocess
+import subprocess                                       
 import random
+import http.client, urllib
 
 def set_seed(seed):
     np.random.seed(seed)
@@ -69,8 +70,9 @@ def train(config):
 
         init_epoch = checkpoint['epoch_index']
         best_metric = checkpoint['best_metric']
-
-    optimizer = builder.make_optimizer(config, model)
+        optimizer = builder.make_optimizer(config, model, init_epoch)
+    else:
+        optimizer = builder.make_optimizer(config, model)
     scheduler = builder.make_schedular(config, optimizer, last_epoch=init_epoch if config.train.resume else -1)
 
     multiplier = 1.0
@@ -87,11 +89,12 @@ def train(config):
     for epoch_idx in range(init_epoch, config.train.epochs):
         avg_meter_loss.reset()
         model.train()
-        torch.cuda.empty_cache()
+        #torch.cuda.empty_cache()
 
         try:
             with tqdm(train_dataloader) as t:
                 for batch_idx, (_, _, data) in enumerate(t):
+                    logging.info('Epoch: %d/%d | Iter: %d/%d' % (epoch_idx, config.train.epochs, batch_idx + 1, n_batches))
                     if config.dataset.name in ['PCN', 'Completion3D', 'Arabidopsis']:
                         for k, v in data.items():
                             data[k] = helpers.var_or_cuda(v)
@@ -129,7 +132,6 @@ def train(config):
                     # torch.cuda.empty_cache()
         except Exception as e:
             raise e
-                     
 
         scheduler.step()
         print('epoch: ', epoch_idx, 'optimizer: ', optimizer.param_groups[0]['lr'])
@@ -143,6 +145,8 @@ def train(config):
         cd_eval = test(config, model=model, test_dataloader=test_dataloader, validation=True,
                        epoch_idx=epoch_idx, test_writer=val_writer, completion_loss=completion_loss)
 
+                     
+        configp = yaml_reader.read_yaml(config.config_path)
         # Save checkpoints
         if epoch_idx % config.train.save_freq == 0 or cd_eval < best_metric:
             file_name = 'ckpt-best.pth' if cd_eval < best_metric else 'ckpt-epoch-%03d.pth' % epoch_idx
@@ -155,16 +159,28 @@ def train(config):
             logging.info('Saved checkpoint to %s ...' % output_path)
             if cd_eval < best_metric:
                 best_metric = cd_eval
-        if epoch_idx % config.train.split_freq == 0:
-            cmd = f"python C:/Users/Husse/Documents/TER/TERCompletionNuages/testing/split7.py --limit-dir 6 --limit-plant 650 --seed {random.randint(30, 1000)}"
+        """if epoch_idx % config.train.split_freq == 0:
+            cmd = f"python C:/Users/Husse/Documents/TER/TERCompletionNuages/testing/split7.py --limit-dir 4 --limit-plant 700 --seed {random.randint(30, 1000)}"
             subprocess.run(cmd, shell=True)
             config_path = config.config_path
-            config = yaml_reader.read_yaml(config_path)
+            config_checkpoints = config.train.path_checkpoints
+            config_logs = config.train.path_logs
+            config = configp
             config.config_path = config_path
+            config.train.path_checkpoints = config_checkpoints
+            config.train.path_logs = config_logs
             train_dataloader = builder.make_dataloader(config, 'train')
-            test_dataloader = builder.make_dataloader(config, config.test.split)
+            test_dataloader = builder.make_dataloader(config, config.test.split)"""
+        if epoch_idx % config.train.optimizer.decay_freq == 0:
+            optimizer = builder.make_optimizer(config, model, epoch_idx)
+            scheduler = builder.make_schedular(config, optimizer, last_epoch=epoch_idx)
 
-
+        config.train.optimizer.decay_factor = configp.train.optimizer.decay_factor
+        config.train.optimizer.decay_freq = configp.train.optimizer.decay_freq
+        config.train.optimizer.decay_ignore = configp.train.optimizer.decay_ignore
+        config.train.optimizer.kwargs.lr = configp.train.optimizer.kwargs.lr
+        config.train.save_freq = configp.train.save_freq
+        config.train.split_freq = configp.train.split_freq
 
     train_writer.close()
     val_writer.close()
@@ -188,6 +204,17 @@ if __name__ == '__main__':
         import winsound
         winsound.PlaySound("SystemExit", winsound.SND_ALIAS)
 
+        
+        conn = http.client.HTTPSConnection("api.pushover.net:443")
+        conn.request("POST", "/1/messages.json",
+        urllib.parse.urlencode({
+            "token": "adv35dbsktbcgkdez9mufr6im6t68d",
+            "user": "uo6ey6gx5wps3u4yzswaq7casvh7wk",
+            "message": e,
+        }), { "Content-type": "application/x-www-form-urlencoded" })
+        r = conn.getresponse()
+        print(r.status, r.reason)
+        conn.close()
         # log and raise
         logging.error(e)
         raise e

@@ -59,11 +59,30 @@ def make_model(config):
     return model
 
 
-def make_optimizer(config, model):
+def make_optimizer(config, model, current_epoch=0):
     opti_config = config.train.optimizer
     if opti_config.type == 'Adam':
-        optimizer = torch.optim.Adam([{'params': filter(lambda p: p.requires_grad, model.parameters()), 'initial_lr': opti_config.kwargs.lr}],
-                                     **opti_config.kwargs)
+        if not current_epoch == 0:
+            initial_weight_decay = opti_config.kwargs.weight_decay  # Initial weight decay value
+            weight_decay_increase_factor = opti_config.decay_factor  # Factor by which weight decay increases
+            weight_decay_increase_epochs = opti_config.decay_freq  # Number of epochs after which weight decay increases
+            start_weight_decay_increase_epoch = opti_config.decay_ignore  # Epoch to start increasing weight decay
+            epoch = current_epoch
+            def get_current_weight_decay():
+                if epoch >= start_weight_decay_increase_epoch:
+                    # Calculate the weight decay for epochs after start_weight_decay_increase_epoch
+                    decay_factor = ((epoch - start_weight_decay_increase_epoch) // weight_decay_increase_epochs)
+                    #decay_factor = weight_decay_increase_factor ** ((epoch - start_weight_decay_increase_epoch) // weight_decay_increase_epochs)
+                    return initial_weight_decay if decay_factor == 0 else initial_weight_decay * decay_factor
+                    # Return the initial weight decay value for epochs before start_weight_decay_increase_epoch
+                return initial_weight_decay
+
+            opti_config.kwargs.weight_decay = round(get_current_weight_decay(), 4)
+        print('optimizer weight decay: ', "{:.4f}".format(opti_config.kwargs.weight_decay))
+        optimizer = torch.optim.Adam(
+            [{'params': filter(lambda p: p.requires_grad, model.parameters()), 'initial_lr': opti_config.kwargs.lr}],
+            **opti_config.kwargs
+        )
     elif opti_config.type == 'AdamW':
         optimizer = torch.optim.AdamW([{'params': filter(lambda p: p.requires_grad, model.parameters()), 'initial_lr': opti_config.kwargs.lr}],
                                       **opti_config.kwargs)

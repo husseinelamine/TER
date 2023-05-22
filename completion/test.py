@@ -5,6 +5,7 @@ import argparse
 from tqdm import tqdm
 from utils import helpers, average_meter, yaml_reader, loss_util, misc
 from core import builder
+import http.client, urllib
 
 def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='The argument parser of SnowflakeNet')
@@ -147,15 +148,26 @@ def test(config, model=None, test_dataloader=None, epoch_idx=-1, validation=Fals
         print(Arabidopsis_dict[taxonomy_id]+'\t')
 
     print('Overall', end='\t\t\t')
+    v = {}
     for value in test_metrics.avg():
         print('%.4f' % value, end='\t')
+        v = value
     print('\n')
 
     print('Epoch ', epoch_idx, end='\t')
     for value in test_losses.avg():
         print('%.4f' % value, end='\t')
     print('\n')
-
+    conn = http.client.HTTPSConnection("api.pushover.net:443")
+    conn.request("POST", "/1/messages.json",
+    urllib.parse.urlencode({
+        "token": "adv35dbsktbcgkdez9mufr6im6t68d",
+        "user": "uo6ey6gx5wps3u4yzswaq7casvh7wk",
+        "message": '[Epoch {}] Overall: {:.4f}'.format(epoch_idx, v),
+    }), { "Content-type": "application/x-www-form-urlencoded" })
+    r = conn.getresponse()
+    print(r.status, r.reason)
+    conn.close()
     # Add testing results to TensorBoard
     if test_writer is not None:
         test_writer.add_scalar('Loss/Epoch/partial_matching', test_losses.avg(0), epoch_idx)

@@ -2,6 +2,8 @@ import json
 import logging
 import torch
 import random
+import multiprocessing
+from functools import partial
 from tqdm import tqdm
 from .utils import Compose
 from .dataset import Dataset
@@ -23,6 +25,45 @@ def collate_fn(batch):
         data[k] = torch.stack(v, 0)
     return taxonomy_ids, model_ids, data
 
+def process_sample(cfg, subset, dc, s):
+    if subset == 'test' or subset == 'val':
+        # Code for test or val subset
+        gt_path = cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/'+ s)
+        n = get_this_max_file_number(gt_path)
+        i = random.randint(0, n)
+        obj = {
+            'taxonomy_id': dc['taxonomy_id'],
+            'model_id': s,
+            'partial_cloud_path': rename_file(gt_path, i),
+            'gtcloud_path': gt_path
+        }
+        return obj
+    else:
+        # Code for train subset
+        n = get_max_file_number(cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/'+ s))
+        file_list = {
+            'taxonomy_id': dc['taxonomy_id'],
+            'model_id': s,
+            'partial_cloud_path': [
+                cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/'+ str(i) + '.ply')
+                for i in range(n)
+            ],
+            'gtcloud_path': cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/gt.ply')
+        }
+        return file_list
+
+def process_category(cfg, subset, dc):
+    logging.info('Collecting files of Taxonomy [ID=%s, Name=%s]' % (dc['taxonomy_id'], dc['taxonomy_name']))
+    samples = dc[subset]
+    
+    # Create a partial function with fixed arguments
+    process_func = partial(process_sample, cfg, subset, dc)
+    
+    # Use multiprocessing.Pool to parallelize the processing
+    with multiprocessing.Pool(processes=6) as pool:
+        results = list(tqdm(pool.imap(process_func, samples), total=len(samples), leave=False))
+    
+    return results
 
 class ADPDataLoader(object):
     def __init__(self, cfg):
@@ -70,7 +111,6 @@ class ADPDataLoader(object):
                 'objects': ['partial_cloud', 'gtcloud']
             }])
 
-
     def _get_file_list(self, cfg, subset, n_renderings=1):
         """Prepare file list for the dataset"""
         file_list = []
@@ -104,5 +144,16 @@ class ADPDataLoader(object):
                             cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/gt.ply'),
                     })
 
+        logging.info('Complete collecting files of the dataset. Total files: %d' % len(file_list))
+        return file_list
+    
+    def _get_file_list1(self, cfg, subset, n_renderings = 1):
+
+        """Prepare file list for the dataset"""
+        file_list = []
+        for dc in tqdm(self.dataset_categories, leave=False):
+            results = process_category(cfg, subset, dc)
+            file_list.extend(results)
+        
         logging.info('Complete collecting files of the dataset. Total files: %d' % len(file_list))
         return file_list
