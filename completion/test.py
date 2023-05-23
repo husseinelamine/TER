@@ -9,7 +9,7 @@ import http.client, urllib
 
 def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='The argument parser of SnowflakeNet')
-    parser.add_argument('--config', type=str, default='./configs/Arabidopsis.yaml', help='Configuration File')
+    parser.add_argument('--config', type=str, default='/kaggle/working/TER/completion/configs/arabidopsis.yaml', help='Configuration File')
     args = parser.parse_args()
     return args
 
