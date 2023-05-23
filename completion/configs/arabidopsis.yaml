@@ -34,9 +34,9 @@ train:
       gamma: 0.7937,
     }}
   seed: 2022
-  gpu: [0]
+  gpu: [0, 1]
   batch_size: 12
-  num_workers: 1
+  num_workers: 12
   epochs: 400
   loss_func: cd_l2
   betas: [.9, .999]
@@ -51,9 +51,9 @@ train:
 
 test:
   split: test
-  gpu: [0]
+  gpu: [0, 1]
   batch_size: 8
-  num_workers: 1
+  num_workers: 4
   loss_func: cd_l2
   #model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
   model_path: /kaggle/working/TER/completion/exp/best/ckpt-best.pth
