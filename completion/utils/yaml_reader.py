@@ -13,5 +13,5 @@ def create_edict(pack):
 def read_yaml(path):
     with open(path, 'r') as file:
         config = yaml.safe_load(file)
-
+    print(config)
     return create_edict(config)
