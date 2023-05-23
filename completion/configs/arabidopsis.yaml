@@ -1,9 +1,9 @@
 common_path_base: C:/Users/Husse/Documents/TER/TERCompletionNuages/
 dataset:
   name: Arabidopsis
-  category_file_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/category_files/Arabidopsis.json
-  partial_points_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/partial/%s
-  complete_points_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/complete/%s
+  category_file_path: /kaggle/working/TER/completion/category_files/Arabidopsis.json
+  partial_points_path: /kaggle/input/partialpointcloud/partial/%s
+  complete_points_path: /kaggle/input/partialpointcloud/partial/%s
   n_renderings: 8
   n_points: 2048
 
@@ -46,7 +46,7 @@ train:
   out_path:
   resume: True
   #model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
-  model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/exp/checkpoints/2023-05-21T20-48-31/ckpt-epoch-228.pth
+  model_path: /kaggle/working/TER/completion/exp/best/ckpt-best.pth
 #  updated_model_reader: D:/M1/S2/TER/Train/SnowflakeNet/completion/configs/train_update.yaml
 
 test:
@@ -56,5 +56,5 @@ test:
   num_workers: 1
   loss_func: cd_l2
   #model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
-  model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/exp/checkpoints/2023-05-21T20-48-31/ckpt-epoch-228.pth
+  model_path: /kaggle/working/TER/completion/exp/best/ckpt-best.pth
 
