@@ -26,7 +26,7 @@ def set_seed(seed):
 
 def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='The argument parser of SnowflakeNet')
-    parser.add_argument('--config', type=str, default='C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/configs/Arabidopsis.yaml', help='Configuration File')
+    parser.add_argument('--config', type=str, default='/kaggle/working/TER/completion/category_files/Arabidopsis.json', help='Configuration File')
     args = parser.parse_args()
     return args
 
@@ -130,6 +130,17 @@ def train(config):
                         loss='%s' % ['%.4f' % l for l in losses])
                     # trying to free memory
                     # torch.cuda.empty_cache()
+                    # each 300 batches send a notification
+                    if batch_idx % 300 == 0:
+                        conn = http.client.HTTPSConnection("api.pushover.net:443")
+                        conn.request("POST", "/1/messages.json",
+                        urllib.parse.urlencode({
+                            "token": "adv35dbsktbcgkdez9mufr6im6t68d",
+                            "user": "uo6ey6gx5wps3u4yzswaq7casvh7wk",
+                            "message": f"Epoch: {epoch_idx} | Iter: {batch_idx} | Loss: {losses[4]}",
+                        }), { "Content-type": "application/x-www-form-urlencoded" })
+                        r = conn.getresponse()
+                        conn.close()
         except Exception as e:
             raise e
 
@@ -218,5 +229,3 @@ if __name__ == '__main__':
         # log and raise
         logging.error(e)
         raise e
-        
-        
