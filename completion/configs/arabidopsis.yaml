@@ -19,7 +19,7 @@ train:
   optimizer: {
     type: Adam,
     kwargs: {
-      lr: 0.01,
+      lr: 0.001,
       weight_decay: 0.0005,
       betas: [.9, .999]
     },
@@ -30,7 +30,7 @@ train:
   scheduler: {
     type: StepLR,
     kwargs: {
-      decay_step: 200,
+      decay_step: 50,
       gamma: 0.5,
     }}
   seed: 2022
