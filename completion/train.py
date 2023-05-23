@@ -26,7 +26,7 @@ def set_seed(seed):
 
 def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='The argument parser of SnowflakeNet')
-    parser.add_argument('--config', type=str, default='/kaggle/working/TER/completion/category_files/Arabidopsis.json', help='Configuration File')
+    parser.add_argument('--config', type=str, default='/kaggle/working/TER/completion/configs/arabidopsis.yaml', help='Configuration File')
     args = parser.parse_args()
     return args
 
