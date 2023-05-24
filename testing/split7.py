@@ -6,11 +6,11 @@ import argparse
 def clean_file_paths(file_paths):
     cleaned_paths = []
     for path in file_paths:
-        cleaned_path = path.replace("\\", "/").replace("C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/partial/", "")
+        cleaned_path = path.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/partial/", "")
         cleaned_paths.append(cleaned_path)
     return cleaned_paths
 
-data_dir = "C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/"
+data_dir = "/kaggle/input/partialpointcloud/partial/"
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--max-count', type=int, default=5,
@@ -88,7 +88,7 @@ for plant in plants:
         train_files = train_partial
         # Extract the second folder name as the taxonomy name and combine with the plant name
         taxonomy_name = os.path.join(partial_dir, dir)
-        taxonomy_id = taxonomy_name.replace("\\", "/").replace("C:/Users/Husse/Documents/TER/TERCompletionNuages/data/Arabidopsis/partial/", "")
+        taxonomy_id = taxonomy_name.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/partial/", "")
 
         categories.append({
             "taxonomy_id": taxonomy_id,
@@ -99,5 +99,5 @@ for plant in plants:
         })
 
 # Save the file names to a JSON file
-with open("C:/Users/Husse/Documents/TER/TERCompletionNuages/completion/category_files/Arabidopsis.json", "w") as f:
+with open("/kaggle/working/TER/completion/category_files/Arabidopsis.json", "w") as f:
     json.dump(categories, f, indent=4)
