@@ -10,7 +10,7 @@ def clean_file_paths(file_paths):
         cleaned_paths.append(cleaned_path)
     return cleaned_paths
 
-data_dir = "/kaggle/input/partialpointcloud/partial/"
+data_dir = "/kaggle/input/partialpointcloud/"
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--max-count', type=int, default=5,
