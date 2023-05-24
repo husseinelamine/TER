@@ -211,10 +211,6 @@ if __name__ == '__main__':
     try:
         train(config)
     except Exception as e:
-        # play a sound to alert the error
-        import winsound
-        winsound.PlaySound("SystemExit", winsound.SND_ALIAS)
-
         
         conn = http.client.HTTPSConnection("api.pushover.net:443")
         conn.request("POST", "/1/messages.json",
