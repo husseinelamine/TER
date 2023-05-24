@@ -92,7 +92,9 @@ def train(config):
         #torch.cuda.empty_cache()
 
         try:
-            with train_dataloader as t:
+            t = train_dataloader
+            k = 1
+            if k == 1:
                 for batch_idx, (_, _, data) in enumerate(t):
                     logging.info('Epoch: %d/%d | Iter: %d/%d' % (epoch_idx, config.train.epochs, batch_idx + 1, n_batches))
                     if config.dataset.name in ['PCN', 'Completion3D', 'Arabidopsis']:
