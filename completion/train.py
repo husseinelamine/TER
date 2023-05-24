@@ -39,7 +39,7 @@ def train(config):
     
     model = builder.make_model(config)
     if torch.cuda.is_available():
-        model = torch.nn.DataParallel(model, device_ids=[0,1]).cuda()
+        model = torch.nn.DataParallel(model, device_ids=[0]).cuda()
 
 
     # out folders
