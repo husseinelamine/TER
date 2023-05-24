@@ -114,10 +114,14 @@ class ADPDataLoader(object):
     def _get_file_list(self, cfg, subset, n_renderings=1):
         """Prepare file list for the dataset"""
         file_list = []
-        for dc in tqdm(self.dataset_categories, leave=False):
+        i = 1
+        dataset_length = len(self.dataset_categories)
+        for dc in self.dataset_categories:
             logging.info('Collecting files of Taxonomy [ID=%s, Name=%s]' % (dc['taxonomy_id'], dc['taxonomy_name']))
             samples = dc[subset]
-            for s in tqdm(samples, leave=False):
+            print(f"{i} / {dataset_length}")
+            i=i+1
+            for s in samples:
 
                 if subset == 'test' or subset == 'val':
                     gt_path = cfg.dataset.partial_points_path % (dc['taxonomy_id']+'/'+ s)
