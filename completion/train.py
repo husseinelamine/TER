@@ -92,9 +92,7 @@ def train(config):
         #torch.cuda.empty_cache()
 
         try:
-            t = train_dataloader
-            k = 1
-            if k == 1:
+            with tqdm(train_dataloader, disable=True) as t:
                 for batch_idx, (_, _, data) in enumerate(t):
                     logging.info('Epoch: %d/%d | Iter: %d/%d' % (epoch_idx, config.train.epochs, batch_idx + 1, n_batches))
                     if config.dataset.name in ['PCN', 'Completion3D', 'Arabidopsis']:
@@ -133,7 +131,7 @@ def train(config):
                     # trying to free memory
                     # torch.cuda.empty_cache()
                     # each 300 batches send a notification
-                    if batch_idx % 300 == 0:
+                    if batch_idx % 200 == 0:
                         conn = http.client.HTTPSConnection("api.pushover.net:443")
                         conn.request("POST", "/1/messages.json",
                         urllib.parse.urlencode({
