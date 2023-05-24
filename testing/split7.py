@@ -6,7 +6,7 @@ import argparse
 def clean_file_paths(file_paths):
     cleaned_paths = []
     for path in file_paths:
-        cleaned_path = path.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/partial/", "")
+        cleaned_path = path.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/", "")
         cleaned_paths.append(cleaned_path)
     return cleaned_paths
 
@@ -88,7 +88,7 @@ for plant in plants:
         train_files = train_partial
         # Extract the second folder name as the taxonomy name and combine with the plant name
         taxonomy_name = os.path.join(partial_dir, dir)
-        taxonomy_id = taxonomy_name.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/partial/", "")
+        taxonomy_id = taxonomy_name.replace("\\", "/").replace("/kaggle/input/partialpointcloud/partial/", "")
 
         categories.append({
             "taxonomy_id": taxonomy_id,
