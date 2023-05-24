@@ -125,9 +125,9 @@ def train(config):
                     train_writer.add_scalar('Loss/Batch/cd_p3', losses[4], n_itr)
 
                     t.set_description(
-                        '[Epoch %d/%d][Batch %d/%d]' % (epoch_idx, config.train.epochs, batch_idx + 1, n_batches))
+                        '[E %d/%d|B %d/%d]' % (epoch_idx, config.train.epochs, batch_idx + 1, n_batches))
                     t.set_postfix(
-                        loss='%s' % ['%.4f' % l for l in losses])
+                        loss='%s' % ['%.1f' % l for l in losses])
                     # trying to free memory
                     # torch.cuda.empty_cache()
                     # each 300 batches send a notification
