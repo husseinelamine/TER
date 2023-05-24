@@ -131,7 +131,7 @@ def train(config):
                     # trying to free memory
                     # torch.cuda.empty_cache()
                     # each 300 batches send a notification
-                    if batch_idx % 200 == 0:
+                    if batch_idx % 100 == 0:
                         conn = http.client.HTTPSConnection("api.pushover.net:443")
                         conn.request("POST", "/1/messages.json",
                         urllib.parse.urlencode({
