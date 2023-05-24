@@ -35,7 +35,7 @@ train:
     }}
   seed: 2022
   gpu: [0]
-  batch_size: 12
+  batch_size: 4
   num_workers: 2
   epochs: 400
   loss_func: cd_l2
@@ -46,15 +46,15 @@ train:
   out_path:
   resume: True
   #model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
-  model_path: /kaggle/working/TER/completion/exp/best/ckpt-best.pth
+  model_path: /kaggle/working/TER/completion/exp/checkpoints/2023-05-24T09-42-02/ckpt-epoch-216.pth
 #  updated_model_reader: D:/M1/S2/TER/Train/SnowflakeNet/completion/configs/train_update.yaml
 
 test:
   split: test
   gpu: [0]
-  batch_size: 8
+  batch_size: 4
   num_workers: 2
   loss_func: cd_l2
   #model_path: C:/Users/Husse/Documents/TER/TERCompletionNuages/experiments/ckpt-best.pth
-  model_path: /kaggle/working/TER/completion/exp/best/ckpt-best.pth
+  model_path: /kaggle/working/TER/completion/exp/checkpoints/2023-05-24T09-42-02/ckpt-epoch-216.pth
 
